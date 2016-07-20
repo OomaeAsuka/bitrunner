@@ -1,0 +1,35 @@
+## Bit Runner Script File
+[system]
+    timeout = 3          # Default: 10 sec
+    ratina = 1           # 1:True, 0:False
+    interval = 3         # Default: 10 sec
+    delay = 0            # Default: 0 sec
+    threshold = 0.80     # Default: 0.90
+    searchzoom = [0.75]  # [1.0, 0.75, 0.67]
+
+    recttopleft = "rect-top-left.png"
+    rectbottomright = "rect-bottom-right.png"
+
+    slacktoken = "--Your-Slake-Token-Here --"
+    slackchannel = "--Your-Channel-Here --"
+
+[where-am-i]
+    [where-am-i.error]
+        convictions = ["error_conv1.png", "error_conv2.png"]
+    [where-am-i.start]
+        convictions = ["start_button.png"]
+
+[am-i-lost]
+    [am-i-lost.quest-result]
+        convictions = ["quest_result.png"]
+
+[error]
+sequence = [
+    "error-gotop",
+]
+
+[start]
+timeout = 5
+sequence = [
+    "game-start",
+]

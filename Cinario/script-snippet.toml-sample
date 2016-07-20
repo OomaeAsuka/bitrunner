@@ -1,0 +1,10 @@
+## Bit Runner Script Snippet File
+[error-gotop]
+title   = 'エラーボタンクリック'
+target  = 'error_gotop_button.png'
+action  = 'moveAndActiveAndClick'
+
+[game-start]
+title   = 'ゲームスタート'
+target  = 'start_button.png'
+action  = 'moveAndClick'

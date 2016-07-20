@@ -1,0 +1,17 @@
+ss.png
+wai.png
+*.pyc
+.DS_Store
+
+/__pycache__/*
+
+/Cinario/*
+!/Cinario/script.toml-sample
+!/Cinario/script-snippet.toml-sample
+/Cinario/default/*
+!/Cinario/default/
+/Cinario/share/*
+!/Cinario/share/
+
+/Tests/*
+!/Tests/
