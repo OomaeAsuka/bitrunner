@@ -16,7 +16,7 @@ from PIL import Image
 
 # System parameter
 sysvar_args = None
-sysvar_scriptdir = "Cinario"
+sysvar_scriptdir = "Scenarios"
 sysvar_imgdir = sysvar_scriptdir + "/default" 
 sysvar_script = "script.toml"
 sysvar_snippet_script = "script-snippet.toml"

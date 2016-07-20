@@ -5,13 +5,13 @@ wai.png
 
 /__pycache__/*
 
-/Cinario/*
-!/Cinario/script.toml-sample
-!/Cinario/script-snippet.toml-sample
-/Cinario/default/*
-!/Cinario/default/
-/Cinario/share/*
-!/Cinario/share/
+/Scenarios/*
+!/Scenarios/script.toml-sample
+!/Scenarios/script-snippet.toml-sample
+/Scenarios/default/*
+!/Scenarios/default/
+/Scenarios/share/*
+!/Scenarios/share/
 
 /Tests/*
 !/Tests/
