@@ -205,7 +205,6 @@ def findTarget (target, base, threshold=0.0):
     if threshold == 0.0: threshold = sysvar_threshold
 
     target = sysvar_imgdir + "/" + target
-    base = sysvar_imgdir + "/" + base
 
     # Confirm the existance of the target file
     if os.path.isfile(target) != True:
