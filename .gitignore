@@ -2,7 +2,8 @@ ss.png
 wai.png
 *.pyc
 .DS_Store
-
+.screenshot*
+..screenshot*
 /__pycache__/*
 
 /Scenarios/*
