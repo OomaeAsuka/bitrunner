@@ -46,7 +46,7 @@ def brInit ():
     parser.add_argument("-s", "--showscript", action="store_true", help="Show read script")
     parser.add_argument("-g", "--show-recresult", action="store_true", help="Show recognized result")
     parser.add_argument("-d", "--debug", action="store_true", help="Debug mode")
-    parser.add_argument("-c", "--script-file", help="Script file name")
+    parser.add_argument("-c", "--script-path", help="Script path name")
 
     global sysvar_args
     sysvar_args = parser.parse_args()
@@ -55,13 +55,13 @@ def brInit ():
 
     # Set specific toml file, image directory
     global sysvar_script, sysvar_snippet_script, sysvar_imgdir
-    if sysvar_args.script_file != None:
-        sysvar_script = sysvar_scriptdir + "/" + sysvar_args.script_file + ".toml"
+    if sysvar_args.script_path != None:
+        sysvar_script = sysvar_scriptdir + "/" + sysvar_args.script_path + "/" + sysvar_script
+        sysvar_snippet_script = sysvar_scriptdir + "/" + sysvar_args.script_path + "/" + sysvar_snippet_script
+        sysvar_imgdir = sysvar_scriptdir + "/" + sysvar_args.script_path
     else:
         sysvar_script = sysvar_scriptdir + "/" + sysvar_script
-    fileName, ext = os.path.splitext(sysvar_script)
-    sysvar_snippet_script = fileName + "-snippet.toml"
-    sysvar_imgdir = fileName if sysvar_args.script_file != None else sysvar_imgdir
+        sysvar_snippet_script = sysvar_scriptdir + "/" + sysvar_snippet_script
 
     # Read system parameter by sysvar_script
     script = readSystemFromScript()
@@ -178,7 +178,7 @@ def getWhereAmI ():
         print(script[waiSection])
         convictions = script[waiSection]
         for conviction in convictions['convictions']:
-            print(conviction)
+            print("    Conviction: " + str(conviction))
             res = findTarget(conviction, baseImage)
             print(res)
             if res["result"] == False:
@@ -526,7 +526,7 @@ def playSnipetInList (snippets, script, scriptKey, timeOut, allSkipForce, sequen
 
     # タイムアウトまで処理実行
     for i in range(timeOut):
-        print("TET >> %d" % i)
+        print("    TET => %d" % i)
         time.sleep(eachDelay)
 
         if "target" in scriptSnippet:
