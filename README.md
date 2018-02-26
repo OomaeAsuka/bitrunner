@@ -24,4 +24,5 @@ BitRunner is cross-platform GUI automation with machine vision.
     - imutils
     - Numpy
     - Pyautogui
+    - opencv-python
     - Toml (Python lib for TOML)
