@@ -28,5 +28,7 @@ BitRunner is cross-platform GUI automation with machine vision.
     - Toml (Python lib for TOML)
   
 ### After installation of Windows
-  - copy sample toml `copy ./Scenarios/script.toml-sample ./Scenarios/script.toml` 
+  - copy sample toml <br />
+  `copy Scenarios\script.toml-sample Scenarios\script.toml` <br /> 
+  `copy Scenarios\script-snippet.toml-sample Scenarios\script-snippet.toml`
   - Then you should type `python brwzrgame.py` 
