@@ -26,3 +26,7 @@ BitRunner is cross-platform GUI automation with machine vision.
     - Pyautogui
     - opencv-python
     - Toml (Python lib for TOML)
+  
+### After installation of Windows
+  - copy sample toml `copy ./Scenarios/script.toml-sample ./Scenarios/script.toml` 
+  - Then you should type `python brwzrgame.py` 
