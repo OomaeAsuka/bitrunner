@@ -6,11 +6,6 @@ wai.png
 ..screenshot*
 /__pycache__/*
 
-/Scenarios/*
-!/Scenarios/script.toml-sample
-!/Scenarios/script-snippet.toml-sample
-/Scenarios/default/*
-!/Scenarios/default/
 /Scenarios/share/*
 !/Scenarios/share/
 
