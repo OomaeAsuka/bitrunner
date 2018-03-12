@@ -11,3 +11,5 @@ wai.png
 
 /Tests/*
 !/Tests/
+
+.idea
