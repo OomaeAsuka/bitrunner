@@ -23,6 +23,7 @@ sysvar_snippet_script = "script-snippet.toml"
 sysvar_ratina = True
 sysvar_timeout = 10
 sysvar_savess = "ss.png"
+sysvar_saveseq = False
 sysvar_interval = 10
 sysvar_delay = 0.0
 sysvar_threshold = 0.9
@@ -80,6 +81,9 @@ def brInit ():
     sysvar_timeout = script["timeout"] if "timeout" in script and isinstance(script["timeout"], int) else sysvar_timeout
 
     global sysvar_savess
+
+    global sysvar_saveseq
+    sysvar_saveseq = (True if script["saveimagesequence"] == 1 else False) if "saveimagesequence" in script and isinstance(script["saveimagesequence"], int) else sysvar_saveseq
 
     global sysvar_interval
     sysvar_interval = script["interval"] if "interval" in script and isinstance(script["interval"], int) else sysvar_interval
@@ -190,10 +194,21 @@ def getWhereAmI ():
     return result
 
 # Get Screen Shot And Save It
-def saveScreenShot (saveName):
+def saveScreenShot (saveName, saveSequence=False):
 
     screenshot = pyautogui.screenshot()
-    screenshot.save(saveName)
+
+    if saveSequence == True:
+        # If temp directory doesn't exist, make temp directory.
+        if not os.path.isdir('temp'):
+            os.makedirs('temp')
+
+        now = datetime.datetime.now()
+        saveName = now.strftime("temp/%Y-%m-%d-%H-%M-%S.png")
+        print(saveName)
+        screenshot.save(saveName)
+    else:
+        screenshot.save(saveName)
     print('>>> Saved screenshot...')    
 
 # 認識メソッド
@@ -549,6 +564,8 @@ def playSnipetInList (snippets, script, scriptKey, timeOut, allSkipForce, sequen
 
         # If find the target, execute the specified action.
         if res['result'] == True:
+            # If sysvar_saveseq flag is on, Save screenshot.
+            if sysvar_saveseq == True: saveScreenShot(sysvar_savess, True)
             # Add snipet options
             res.update(options)
             actionMethod(**res)
@@ -632,6 +649,8 @@ def playQuitDirection (snippet, sequenceDelay=0):
 
     # 指定されたアクションを実行
     if res['result'] == True:
+        # If sysvar_saveseq flag is on, Save screenshot.
+        if sysvar_saveseq == True: saveScreenShot(sysvar_savess, True)
         actionMethod(**res)
         time.sleep(sequenceDelay)
         return dict(result=True)
