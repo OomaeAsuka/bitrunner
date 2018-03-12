@@ -523,6 +523,17 @@ def playSnipetInList (snippets, script, scriptKey, timeOut, allSkipForce, sequen
     # except AttributeError:
     #     raise NotImplementedError("Method %s not implemented." % scriptSnippet['action'])
 
+    options = {}
+    if "options" in scriptSnippet:
+        for option in scriptSnippet['options']:
+            print("    Option: " + str(option))
+            if option in scriptSnippet:
+                options[option] = scriptSnippet[option]
+                print(scriptSnippet[option])
+                break
+        else:
+            print("Could not find option: " + option + "...")
+
     # タイムアウトまで処理実行
     for i in range(timeOut):
         print("    TET => %d" % i)
@@ -538,6 +549,8 @@ def playSnipetInList (snippets, script, scriptKey, timeOut, allSkipForce, sequen
 
         # If find the target, execute the specified action.
         if res['result'] == True:
+            # Add snipet options
+            res.update(options)
             actionMethod(**res)
             t = threading.Thread(target=postSlack, args=(sysvar_savess, title))
             t.start()
@@ -719,6 +732,16 @@ def moveAndClick (**options):
     pyautogui.click()
     pyautogui.moveTo(10, 10) # 10, 10 for avoid fail-safe
 
+# マウス移動＆ダブルクリック
+def moveAndDoubleClick (**options):
+
+    displayMagnification = 2 if sysvar_ratina == True else 1
+    pyautogui.moveTo((options.get('top')/displayMagnification) + (options.get('width')/(displayMagnification*2)),
+                     (options.get('left')/displayMagnification) + (options.get('height')/(displayMagnification*2)),
+                     2)
+    pyautogui.doubleClick()
+    pyautogui.moveTo(10, 10) # 10, 10 for avoid fail-safe
+
 # マウス移動＆クリックで画面アクティブ＆クリック
 def moveAndActiveAndClick (**options):
 
@@ -755,3 +778,13 @@ def clickCenter (**options):
                          2)
     pyautogui.click()
     pyautogui.moveTo(10, 10) # 10, 10 for avoid fail-safe
+
+# スクロール
+def scrollPage (**options):
+
+    displayMagnification = 2 if sysvar_ratina == True else 1
+    pyautogui.moveTo((options.get('top')/displayMagnification) + (options.get('width')/(displayMagnification*2)),
+                     (options.get('left')/displayMagnification) + (options.get('height')/(displayMagnification*2)),
+                     2)
+    pyautogui.click()
+    pyautogui.scroll(options.get('scroll'))
