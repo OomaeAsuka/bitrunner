@@ -2,6 +2,7 @@
 import toml
 import numpy as np
 import imutils
+import imutils_convenience as imc
 import sys
 import os
 import argparse
@@ -203,13 +204,44 @@ def saveScreenShot (saveName, saveSequence=False):
         if not os.path.isdir('temp'):
             os.makedirs('temp')
 
-        now = datetime.datetime.now()
-        saveName = now.strftime("temp/%Y-%m-%d-%H-%M-%S.png")
-        print(saveName)
-        screenshot.save(saveName)
+        savedFileNameSeed = datetime.datetime.now()
+        savedFileName = savedFileNameSeed.strftime("temp/%Y-%m-%d-%H-%M-%S.png")
+        screenshot.save(savedFileName)
+        # Create Mosaic Image
+        if getTempFileCount() > 15:
+            createMosaicImage()
     else:
         screenshot.save(saveName)
-    print('>>> Saved screenshot...')    
+
+    print('>>> Saved screenshot...')
+
+def getTempFileCount ():
+
+    if not os.path.isdir('temp'):
+        return 0
+
+    files = os.listdir('temp')
+    return len(files)
+
+def createMosaicImage ():
+
+    fileCount = getTempFileCount()
+
+    images = []
+
+    files = os.listdir('temp')
+    for file in files:
+        images.append(cv2.imread('temp/' + file))
+        os.remove('temp/' + file)
+
+    for i in range(fileCount, 25):
+        images.append(cv2.imread('no-image.png'))
+
+    print('IMAGE LENGTH: ' + str(len(images)))
+
+    mosaics = imc.build_montages(images, (384, 306), (5, 5))
+    print(len(mosaics))
+    cv2.imwrite('gattai.png', mosaics[0], [cv2.IMWRITE_PNG_COMPRESSION, 9])
 
 # 認識メソッド
 def findTarget (target, base, threshold=0.0):
